@@ -142,6 +142,8 @@ set clipboard=unnamed
 
 " command mappings
 nnoremap ; :
+nnoremap <C-j> :bp<CR>
+nnoremap <C-k> :bn<CR>
 nmap <CR> o<Esc>
 nmap <S-Enter> O<Esc>
 
