@@ -1,8 +1,10 @@
 This is my .vimrc
 -----------------
 
-map ; to :
-,tw deletes trailing whitespace
+Features:
+
+- ; maps to :
+- ,tw deletes trailing whitespace
 
 To install, make sure you get gmarik's Vundle
 
