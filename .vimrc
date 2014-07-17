@@ -39,6 +39,7 @@ Plugin 'gregsexton/gitv'                " gitk clone                :Gitv
 Plugin 'bling/vim-airline'              " status line
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-markdown'
+Plugin 'davidhalter/jedi-vim'
 call vundle#end()
 filetype plugin indent on
 
