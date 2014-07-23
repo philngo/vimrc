@@ -146,16 +146,34 @@ nnoremap <C-j> :bp<CR>
 nnoremap <C-k> :bn<CR>
 nmap <CR> o<Esc>
 nmap <S-Enter> O<Esc>
+inoremap kj <Esc>
 
 " shortcuts to common commands
 let mapleader = ","
 nnoremap <leader>a   :Ack
 nnoremap <leader>p   :set paste<CR>
 nnoremap <leader>tw  :%s/\s\+$//<CR>
+nnoremap <leader>c   gcc
+nnoremap <leader>v   :e ~/.vimrc<CR>
+nnoremap <leader>sv  :source ~/.vimrc<CR>
+
 
 " make backspace work like most other apps
 set backspace=2
 
 " Set filetypes
+autocmd BufNewFile,BufRead *.html set filetype=htmldjango
 autocmd BufNewFile,BufRead Gemfile set filetype=ruby
 autocmd BufNewFile,BufRead *.ino set filetype=c
+
+" set tab defaults for specific filetypes
+autocmd FileType css setlocal shiftwidth=2 tabstop=2
+autocmd FileType scss setlocal shiftwidth=2 tabstop=2
+autocmd FileType html setlocal shiftwidth=2 tabstop=2
+autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2
+autocmd FileType python set sw=4
+autocmd FileType python set ts=4
+autocmd FileType python set sts=4
+
+" Make vim load the .bash_profile and .bash_rc
+set shellcmdflag=-ic
