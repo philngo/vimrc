@@ -8,6 +8,8 @@ Features:
 
 To install, make sure you get gmarik's Vundle
 
+    git clone git@github.com:philngo/vimrc.git
+    cp vimrc/.vimrc ~
     git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
     vim +PluginInstall +qall
 
