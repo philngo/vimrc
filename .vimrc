@@ -39,7 +39,11 @@ Plugin 'gregsexton/gitv'                " gitk clone                :Gitv
 Plugin 'bling/vim-airline'              " status line
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-markdown'
-Plugin 'davidhalter/jedi-vim'
+Plugin 'ingydotnet/yaml-vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'SirVer/ultisnips'
+Plugin 'sukima/xmledit'
+Plugin 'vim-scripts/django.vim'
 call vundle#end()
 filetype plugin indent on
 
@@ -79,6 +83,10 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " search highlight
 set incsearch
+
+" smart case for search
+set ignorecase
+set smartcase
 
 " disable backups
 set nobackup
@@ -131,11 +139,27 @@ set nolist
 set wildmenu
 set wildmode=longest,list,full
 
+" ignore for ctrlp
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc
+
 " highlighting at 80 columns and past 120
 let &colorcolumn="80,".join(range(120,999),",")
 
 " set default tex
 let g:tex_flavor = "latex"
+
+" YCM settings
+let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
+let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
+let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
+let g:ycm_complete_in_comments = 1 " Completion in comments
+let g:ycm_complete_in_strings = 1 " Completion in string
+
+" ultsnips settings
+let g:UltiSnipsExpandTrigger       = "<c-j>"
+let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
+let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
 
 " copy to clipboard
 set clipboard=unnamed
@@ -146,17 +170,19 @@ nnoremap <C-j> :bp<CR>
 nnoremap <C-k> :bn<CR>
 nmap <CR> o<Esc>
 nmap <S-Enter> O<Esc>
+nnoremap <Space> i<Space><Esc>l
 inoremap kj <Esc>
 
 " shortcuts to common commands
 let mapleader = ","
 nnoremap <leader>a   :Ack
 nnoremap <leader>p   :set paste<CR>
+nnoremap <leader>np  :set nopaste<CR>
 nnoremap <leader>tw  :%s/\s\+$//<CR>
 nnoremap <leader>c   gcc
 nnoremap <leader>v   :e ~/.vimrc<CR>
 nnoremap <leader>sv  :source ~/.vimrc<CR>
-
+nnoremap <leader>hd  :setfiletype htmldjango<CR>
 
 " make backspace work like most other apps
 set backspace=2
@@ -165,15 +191,14 @@ set backspace=2
 autocmd BufNewFile,BufRead *.html set filetype=htmldjango
 autocmd BufNewFile,BufRead Gemfile set filetype=ruby
 autocmd BufNewFile,BufRead *.ino set filetype=c
+au BufNewFile,BufRead *.yaml,*.yml set filetype=yaml
 
 " set tab defaults for specific filetypes
 autocmd FileType css setlocal shiftwidth=2 tabstop=2
 autocmd FileType scss setlocal shiftwidth=2 tabstop=2
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2
+autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 autocmd FileType python set sw=4
 autocmd FileType python set ts=4
 autocmd FileType python set sts=4
-
-" Make vim load the .bash_profile and .bash_rc
-set shellcmdflag=-ic
