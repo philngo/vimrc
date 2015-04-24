@@ -44,6 +44,10 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'SirVer/ultisnips'
 Plugin 'sukima/xmledit'
 Plugin 'vim-scripts/django.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'elzr/vim-json'
+Plugin 'jmcantrell/vim-virtualenv'      " :VirtualEnvActivate
+Plugin 'burnettk/vim-angular'
 call vundle#end()
 filetype plugin indent on
 
@@ -140,7 +144,8 @@ set wildmenu
 set wildmode=longest,list,full
 
 " ignore for ctrlp
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*/staticfiles/*,
+set wildignore+=*/vendors/*,*/vendor/*
 
 " highlighting at 80 columns and past 120
 let &colorcolumn="80,".join(range(120,999),",")
@@ -199,6 +204,10 @@ autocmd FileType scss setlocal shiftwidth=2 tabstop=2
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2
 autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
+autocmd FileType json setlocal shiftwidth=2 tabstop=2
 autocmd FileType python set sw=4
 autocmd FileType python set ts=4
 autocmd FileType python set sts=4
+
+" disable mouse scrolling
+
