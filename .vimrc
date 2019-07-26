@@ -1,4 +1,4 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 "    .vimrc
 "
@@ -27,27 +27,37 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'              " :PluginInstall
-Plugin 'hukl/Smyck-Color-Scheme'
+" Plugin 'hukl/Smyck-Color-Scheme'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'mileszs/ack.vim'                " searching                 ,a
+" Plugin 'mileszs/ack.vim'                " searching                 ,a
 Plugin 'kien/ctrlp.vim'                 " searching                 <C-p>
 Plugin 'scrooloose/nerdtree'            " directory tree            :e .
 Plugin 'vim-scripts/trailing-whitespace'
 Plugin 'tomtom/tcomment_vim'            " comment line              gcc
 Plugin 'tpope/vim-fugitive'             " git viewing               :Gedit
-Plugin 'gregsexton/gitv'                " gitk clone                :Gitv
+" Plugin 'gregsexton/gitv'                " gitk clone                :Gitv
 Plugin 'bling/vim-airline'              " status line
-Plugin 'tpope/vim-rails'
+" Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-markdown'
 Plugin 'ingydotnet/yaml-vim'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'SirVer/ultisnips'
+Plugin 'sirver/ultisnips'
+Plugin 'honza/vim-snippets'
 Plugin 'sukima/xmledit'
 Plugin 'vim-scripts/django.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'elzr/vim-json'
-Plugin 'jmcantrell/vim-virtualenv'      " :VirtualEnvActivate
+" Plugin 'jmcantrell/vim-virtualenv'      " :VirtualEnvActivate
 Plugin 'burnettk/vim-angular'
+" Plugin 'mxw/vim-jsx'
+Plugin 'posva/vim-vue'
+Plugin 'triglav/vim-visual-increment'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'          "  quick bracket commands :cnext :cprev -> ]q [q
+Plugin 'hashivim/vim-terraform'
+Plugin 'tpope/vim-abolish'             "  :%S/facilit{y,ies}/building{,s}/g
+Plugin 'hail2u/vim-css3-syntax'
 call vundle#end()
 filetype plugin indent on
 
@@ -80,7 +90,7 @@ set autoindent
 set smartindent
 
 " display line numbers
-set number
+set number  " relativenumber
 
 " no automatic comment insertion
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -143,12 +153,17 @@ set nolist
 set wildmenu
 set wildmode=longest,list,full
 
-" ignore for ctrlp
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*/staticfiles/*,
-set wildignore+=*/vendors/*,*/vendor/*
+" settings for ctrlp
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*/vendors/*,*/vendor/*
+set wildignore+=*/node_modules/*,*/coverage/*,*/.tox/*,*/.eggs/*,*/.cache/*
+set wildignore+=*/.DS_Store,*.egg-info/*,*/build/lib/*.py
+set wildignore+=*/.docker-pipenv-cache/*
+
+" */staticfiles/*,
+let g:ctrlp_show_hidden = 1
 
 " highlighting at 80 columns and past 120
-let &colorcolumn="80,".join(range(120,999),",")
+let &colorcolumn="88,".join(range(120,999),",")
 
 " set default tex
 let g:tex_flavor = "latex"
@@ -205,9 +220,41 @@ autocmd FileType html setlocal shiftwidth=2 tabstop=2
 autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2
 autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 autocmd FileType json setlocal shiftwidth=2 tabstop=2
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType sql setlocal shiftwidth=2 tabstop=2
+autocmd FileType vue setlocal shiftwidth=2 tabstop=2
 autocmd FileType python set sw=4
 autocmd FileType python set ts=4
 autocmd FileType python set sts=4
+autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
+autocmd FileType tf setlocal shiftwidth=2 tabstop=2
 
-" disable mouse scrolling
+" better python auto-indenting behavior
+let g:pyindent_open_paren = 'shiftwidth()'
+let g:pyindent_nested_paren = 'shiftwidth()'
+let g:pyindent_continue = 'shiftwidth()'
 
+" help vim not get confused
+autocmd FileType vue syntax sync fromstart
+
+" disable vim json quote concealing
+let g:vim_json_syntax_conceal = 0
+
+" let cursor stay where it was after yank
+
+:vmap y ygv<Esc>
+:vmap > >gv<Esc>
+:vmap < <gv<Esc>
+
+" jsx ok in javascript files
+let g:jsx_ext_required = 0
+
+" allow dashes in words when jumping by word
+set iskeyword+=-
+
+" to save a snippet for the filetype you're editing, type :UltiSnipsEdit
+let g:UltiSnipsExpandTrigger = '<c-j>'  " '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsSnippetsDir = '/Users/philngo/.vim/my_ultisnips/'
+let g:UltiSnipsSnippetDirectories=['/Users/philngo/.vim/my_ultisnips/']
