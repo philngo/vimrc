@@ -1,22 +1,8 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-"    .vimrc
-"
-"    commands
-"
-"       ;               :
-"       <C-c>           <Esc>
-"       <C-p>           to open a file
-"       '. or `.        to last edit
-"       g*              find word under cursor
-"       gd              find definition of word under cursor
-"       ,               leader
-"       <C-u> or <C-d>  pageup/pagedown
-"       t_ or f_        delete to next _ (ex/inclusive)
-"       ,tw             :%s/\s\+$//
-"
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""
+"                      "
+"    Phil's .vimrc     "
+"                      "
+""""""""""""""""""""""""
 
 " general
 set encoding=utf-8
@@ -26,37 +12,31 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'gmarik/Vundle.vim'              " :PluginInstall
-" Plugin 'hukl/Smyck-Color-Scheme'
+" commands
+Plugin 'gmarik/Vundle.vim'                  " plugin manager                  :PluginInstall or $ vim +PluginInstall +qall
+Plugin 'kien/ctrlp.vim'                     " searching files in directory    <C-p>
+Plugin 'scrooloose/nerdtree'                " directory tree                  :e .
+Plugin 'tomtom/tcomment_vim'                " comment/uncomment line          gcc
+Plugin 'sirver/ultisnips'                   " snippets                        :UltiSnipsEdit
+Plugin 'triglav/vim-visual-increment'       " incrementing nums in vis select <C-A>
+Plugin 'tpope/vim-unimpaired'               " quick bracket commands          :cnext :cprev -> ]q [q
+Plugin 'tpope/vim-abolish'                  " substitution with capitals      :%S/facilit{y,ies}/building{,s}/g
+Plugin 'Valloric/YouCompleteMe'             " text completion                 <tab>
+" look and feel plugins
+Plugin 'airblade/vim-gitgutter'             " show git diff status by numbers
+Plugin 'bling/vim-airline'                  " nice looking bottom status line
 Plugin 'altercation/vim-colors-solarized'
-" Plugin 'mileszs/ack.vim'                " searching                 ,a
-Plugin 'kien/ctrlp.vim'                 " searching                 <C-p>
-Plugin 'scrooloose/nerdtree'            " directory tree            :e .
-Plugin 'vim-scripts/trailing-whitespace'
-Plugin 'tomtom/tcomment_vim'            " comment line              gcc
-Plugin 'tpope/vim-fugitive'             " git viewing               :Gedit
-" Plugin 'gregsexton/gitv'                " gitk clone                :Gitv
-Plugin 'bling/vim-airline'              " status line
-" Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-markdown'
-Plugin 'ingydotnet/yaml-vim'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'sirver/ultisnips'
-Plugin 'honza/vim-snippets'
+" syntax highlighting
+Plugin 'vim-scripts/trailing-whitespace'    " show trailing whitespace as red ->  
 Plugin 'sukima/xmledit'
 Plugin 'vim-scripts/django.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'elzr/vim-json'
-" Plugin 'jmcantrell/vim-virtualenv'      " :VirtualEnvActivate
 Plugin 'burnettk/vim-angular'
-" Plugin 'mxw/vim-jsx'
 Plugin 'posva/vim-vue'
-Plugin 'triglav/vim-visual-increment'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'          "  quick bracket commands :cnext :cprev -> ]q [q
+Plugin 'tpope/vim-markdown'
+Plugin 'ingydotnet/yaml-vim'
 Plugin 'hashivim/vim-terraform'
-Plugin 'tpope/vim-abolish'             "  :%S/facilit{y,ies}/building{,s}/g
 Plugin 'hail2u/vim-css3-syntax'
 call vundle#end()
 filetype plugin indent on
@@ -73,11 +53,6 @@ endif
 set t_Co=16
 let g:solarized_termcolors=16
 colorscheme solarized
-
-" smyck - use corresponding terminal theme
-" set background=dark
-" set t_Co=256
-" colorscheme smyck
 
 " tabs
 set shiftwidth=4
@@ -241,7 +216,6 @@ autocmd FileType vue syntax sync fromstart
 let g:vim_json_syntax_conceal = 0
 
 " let cursor stay where it was after yank
-
 :vmap y ygv<Esc>
 :vmap > >gv<Esc>
 :vmap < <gv<Esc>
@@ -256,5 +230,5 @@ set iskeyword+=-
 let g:UltiSnipsExpandTrigger = '<c-j>'  " '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
-let g:UltiSnipsSnippetsDir = '/Users/philngo/.vim/my_ultisnips/'
-let g:UltiSnipsSnippetDirectories=['/Users/philngo/.vim/my_ultisnips/']
+let g:UltiSnipsSnippetsDir = '~/.vim/my_ultisnips/'
+let g:UltiSnipsSnippetDirectories=['~/.vim/my_ultisnips/']
