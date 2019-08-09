@@ -204,6 +204,9 @@ autocmd FileType python set sts=4
 autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
 autocmd FileType tf setlocal shiftwidth=2 tabstop=2
 
+" Override default italic highlighting
+highlight htmlItalic gui=italic guifg=#ff8700 ctermfg=214
+
 " better python auto-indenting behavior
 let g:pyindent_open_paren = 'shiftwidth()'
 let g:pyindent_nested_paren = 'shiftwidth()'
@@ -230,5 +233,5 @@ set iskeyword+=-
 let g:UltiSnipsExpandTrigger = '<c-j>'  " '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
-let g:UltiSnipsSnippetsDir = '~/.vim/my_ultisnips/'
-let g:UltiSnipsSnippetDirectories=['~/.vim/my_ultisnips/']
+let g:UltiSnipsSnippetsDir = '/Users/philngo/.vim/my_ultisnips/'
+let g:UltiSnipsSnippetDirectories=['/Users/philngo/.vim/my_ultisnips/']
