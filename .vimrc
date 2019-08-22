@@ -22,6 +22,7 @@ Plugin 'triglav/vim-visual-increment'       " incrementing nums in vis select <C
 Plugin 'tpope/vim-unimpaired'               " quick bracket commands          :cnext :cprev -> ]q [q
 Plugin 'tpope/vim-abolish'                  " substitution with capitals      :%S/facilit{y,ies}/building{,s}/g
 Plugin 'Valloric/YouCompleteMe'             " text completion                 <tab>
+Plugin 'psf/black'                          " python black formatter          :Black
 " look and feel plugins
 Plugin 'airblade/vim-gitgutter'             " show git diff status by numbers
 Plugin 'bling/vim-airline'                  " nice looking bottom status line
@@ -205,7 +206,7 @@ autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
 autocmd FileType tf setlocal shiftwidth=2 tabstop=2
 
 " Override default italic highlighting
-highlight htmlItalic gui=italic guifg=#ff8700 ctermfg=214
+highlight htmlItalic gui=italic guifg=#b58900 ctermfg=136
 
 " better python auto-indenting behavior
 let g:pyindent_open_paren = 'shiftwidth()'
