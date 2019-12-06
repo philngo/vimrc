@@ -14,18 +14,20 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " commands
 Plugin 'gmarik/Vundle.vim'                  " plugin manager                  :PluginInstall or $ vim +PluginInstall +qall
-Plugin 'kien/ctrlp.vim'                     " searching files in directory    <C-p>
+Plugin 'kien/ctrlp.vim'                     " searching files in directory    <C-p> (F5 to reload)
 Plugin 'scrooloose/nerdtree'                " directory tree                  :e .
 Plugin 'tomtom/tcomment_vim'                " comment/uncomment line          gcc
 Plugin 'sirver/ultisnips'                   " snippets                        :UltiSnipsEdit
 Plugin 'triglav/vim-visual-increment'       " incrementing nums in vis select <C-A>
 Plugin 'tpope/vim-unimpaired'               " quick bracket commands          :cnext :cprev -> ]q [q
 Plugin 'tpope/vim-abolish'                  " substitution with capitals      :%S/facilit{y,ies}/building{,s}/g
+Plugin 'tpope/vim-eunuch'                   " :Move, :Rename
 Plugin 'Valloric/YouCompleteMe'             " text completion                 <tab>
 Plugin 'psf/black'                          " python black formatter          :Black
+Plugin 'junegunn/vim-easy-align'            " align markdownn tables          :EasyAlign*<Bar><Enter> (mapped to <leader><Bslash>)
 " look and feel plugins
 Plugin 'airblade/vim-gitgutter'             " show git diff status by numbers
-Plugin 'bling/vim-airline'                  " nice looking bottom status line
+Plugin 'bling/vim-airline'                  " nice looking bottom status line and tabs
 Plugin 'altercation/vim-colors-solarized'
 " syntax highlighting
 Plugin 'vim-scripts/trailing-whitespace'    " show trailing whitespace as red ->  
@@ -39,6 +41,7 @@ Plugin 'tpope/vim-markdown'
 Plugin 'ingydotnet/yaml-vim'
 Plugin 'hashivim/vim-terraform'
 Plugin 'hail2u/vim-css3-syntax'
+Plugin 'leafgarland/typescript-vim'
 call vundle#end()
 filetype plugin indent on
 
@@ -150,12 +153,7 @@ let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
 let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
 let g:ycm_complete_in_comments = 1 " Completion in comments
 let g:ycm_complete_in_strings = 1 " Completion in string
-
-" ultsnips settings
-let g:UltiSnipsExpandTrigger       = "<c-j>"
-let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
-let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
+let g:ycm_autoclose_preview_window_after_completion = 1
 
 " copy to clipboard
 set clipboard=unnamed
@@ -179,9 +177,17 @@ nnoremap <leader>c   gcc
 nnoremap <leader>v   :e ~/.vimrc<CR>
 nnoremap <leader>sv  :source ~/.vimrc<CR>
 nnoremap <leader>hd  :setfiletype htmldjango<CR>
+nnoremap <leader><Bslash> :EasyAlign*<Bar><CR>
+vnoremap <leader><Bslash> :EasyAlign*<Bar><CR>
 
 " make backspace work like most other apps
 set backspace=2
+
+" set text width to 88 instead of 80
+" great for breaking one really long line into multiple lines with gq
+set textwidth=88
+" but don't auto-enter newlines
+set wrapmargin=0
 
 " Set filetypes
 autocmd BufNewFile,BufRead *.html set filetype=htmldjango
@@ -220,9 +226,9 @@ autocmd FileType vue syntax sync fromstart
 let g:vim_json_syntax_conceal = 0
 
 " let cursor stay where it was after yank
-:vmap y ygv<Esc>
-:vmap > >gv<Esc>
-:vmap < <gv<Esc>
+vmap y ygv<Esc>
+vmap > >gv<Esc>
+vmap < <gv<Esc>
 
 " jsx ok in javascript files
 let g:jsx_ext_required = 0
@@ -230,9 +236,12 @@ let g:jsx_ext_required = 0
 " allow dashes in words when jumping by word
 set iskeyword+=-
 
+
+" ultsnips settings
 " to save a snippet for the filetype you're editing, type :UltiSnipsEdit
-let g:UltiSnipsExpandTrigger = '<c-j>'  " '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsExpandTrigger       = "<c-j>"
+let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
+let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
 let g:UltiSnipsSnippetsDir = '/Users/philngo/.vim/my_ultisnips/'
 let g:UltiSnipsSnippetDirectories=['/Users/philngo/.vim/my_ultisnips/']
