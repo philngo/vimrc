@@ -1,4 +1,5 @@
 """"""""""""""""""""""""
+
 "                      "
 "    Phil's .vimrc     "
 "                      "
@@ -42,6 +43,8 @@ Plugin 'ingydotnet/yaml-vim'
 Plugin 'hashivim/vim-terraform'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'leafgarland/typescript-vim'
+Plugin 'rust-lang/rust.vim'
+Plugin 'mechatroner/rainbow_csv'
 call vundle#end()
 filetype plugin indent on
 
@@ -245,3 +248,6 @@ let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
 let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
 let g:UltiSnipsSnippetsDir = '/Users/philngo/.vim/my_ultisnips/'
 let g:UltiSnipsSnippetDirectories=['/Users/philngo/.vim/my_ultisnips/']
+
+" automatic rust formatting
+let g:rustfmt_autosave = 1
