@@ -45,6 +45,7 @@ Plugin 'hail2u/vim-css3-syntax'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'rust-lang/rust.vim'
 Plugin 'mechatroner/rainbow_csv'
+Plugin 'prettier/vim-prettier'
 call vundle#end()
 filetype plugin indent on
 
@@ -251,3 +252,7 @@ let g:UltiSnipsSnippetDirectories=['/Users/philngo/.vim/my_ultisnips/']
 
 " automatic rust formatting
 let g:rustfmt_autosave = 1
+
+" automatic js and vue formatting
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.css,*.less,*.scss,*.vue Prettier
