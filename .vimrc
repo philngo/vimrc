@@ -255,4 +255,7 @@ let g:rustfmt_autosave = 1
 
 " automatic js and vue formatting
 let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.css,*.less,*.scss,*.vue Prettier
+autocmd BufWritePre *.js,*.vue Prettier
+
+" automatic blackening
+autocmd BufWritePre *.py Black
