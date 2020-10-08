@@ -1,13 +1,18 @@
 """"""""""""""""""""""""
-
 "                      "
 "    Phil's .vimrc     "
 "                      "
 """"""""""""""""""""""""
-
 " general
 set encoding=utf-8
 set nocompatible
+
+let g:pymode_python = 'python3'
+" Disable virtualenv in Pymode
+let g:pymode_virtualenv = 0
+" Disable pymode init and lint because of #897
+let g:pymode_init = 0
+let g:pymode_lint = 0
 
 " vundle
 filetype off
@@ -18,14 +23,14 @@ Plugin 'gmarik/Vundle.vim'                  " plugin manager                  :P
 Plugin 'kien/ctrlp.vim'                     " searching files in directory    <C-p> (F5 to reload)
 Plugin 'scrooloose/nerdtree'                " directory tree                  :e .
 Plugin 'tomtom/tcomment_vim'                " comment/uncomment line          gcc
-Plugin 'sirver/ultisnips'                   " snippets                        :UltiSnipsEdit
+" Plugin 'sirver/ultisnips'                   " snippets                        :UltiSnipsEdit  " TODO disabled because slow
 Plugin 'triglav/vim-visual-increment'       " incrementing nums in vis select <C-A>
 Plugin 'tpope/vim-unimpaired'               " quick bracket commands          :cnext :cprev -> ]q [q
 Plugin 'tpope/vim-abolish'                  " substitution with capitals      :%S/facilit{y,ies}/building{,s}/g
 Plugin 'tpope/vim-eunuch'                   " :Move, :Rename
 Plugin 'Valloric/YouCompleteMe'             " text completion                 <tab>
 Plugin 'psf/black'                          " python black formatter          :Black
-Plugin 'junegunn/vim-easy-align'            " align markdownn tables          :EasyAlign*<Bar><Enter> (mapped to <leader><Bslash>)
+Plugin 'junegunn/vim-easy-align'            " align markdown tables           :EasyAlign*<Bar><Enter> (mapped to <leader><Bslash>)
 " look and feel plugins
 Plugin 'airblade/vim-gitgutter'             " show git diff status by numbers
 Plugin 'bling/vim-airline'                  " nice looking bottom status line and tabs
@@ -141,6 +146,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*/vendors/*,*/vendor/*
 set wildignore+=*/node_modules/*,*/coverage/*,*/.tox/*,*/.eggs/*,*/.cache/*
 set wildignore+=*/.DS_Store,*.egg-info/*,*/build/lib/*.py
 set wildignore+=*/.docker-pipenv-cache/*
+let g:ctrlp_root_markers = ['docker-compose.yml']  " for etls directory so it doesn't use .git/
 
 " */staticfiles/*,
 let g:ctrlp_show_hidden = 1
@@ -240,15 +246,15 @@ let g:jsx_ext_required = 0
 " allow dashes in words when jumping by word
 set iskeyword+=-
 
-
 " ultsnips settings
 " to save a snippet for the filetype you're editing, type :UltiSnipsEdit
-let g:UltiSnipsExpandTrigger       = "<c-j>"
-let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
-let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
-let g:UltiSnipsSnippetsDir = '/Users/philngo/.vim/my_ultisnips/'
-let g:UltiSnipsSnippetDirectories=['/Users/philngo/.vim/my_ultisnips/']
+" TODO: restore! Disabled because slow
+" let g:UltiSnipsExpandTrigger       = "<c-j>"
+" let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
+" let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
+" let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
+" let g:UltiSnipsSnippetsDir = '/Users/philngo/.vim/my_ultisnips/'
+" let g:UltiSnipsSnippetDirectories=['/Users/philngo/.vim/my_ultisnips/']
 
 " automatic rust formatting
 let g:rustfmt_autosave = 1
@@ -259,3 +265,6 @@ autocmd BufWritePre *.js,*.vue Prettier
 
 " automatic blackening
 autocmd BufWritePre *.py Black
+"
+" " automatic import sorting
+" autocmd BufWritePre *.py :!isort %
