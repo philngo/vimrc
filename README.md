@@ -11,6 +11,8 @@ Features:
 - `,v` opens your vim settings, `,sv` sources them
 - JS and python files are autoformatted with opinionated formatters (prettier, black)
 
+## Installation
+
 To install, make sure you get gmarik's Vundle, then run the following commands.
 
     git clone git@github.com:philngo/vimrc.git
@@ -20,7 +22,7 @@ To install, make sure you get gmarik's Vundle, then run the following commands.
 
 You may also want to get the corresponding solarized theme for your terminal.
 
-### Recommended usage:
+### Recommended usage
 
 I recommend opening vim with the raw `vim` command, then using `<C-p>` to open files
 from there into new buffers. This will get you in the habit of always opening files
