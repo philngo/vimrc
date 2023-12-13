@@ -1,4 +1,5 @@
 """"""""""""""""""""""""
+
 "                      "
 "    Phil's .vimrc     "
 "                      "
@@ -18,11 +19,15 @@ let g:pymode_lint = 0
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+
 " commands
 Plugin 'gmarik/Vundle.vim'                  " plugin manager                  :PluginInstall or $ vim +PluginInstall +qall
 Plugin 'kien/ctrlp.vim'                     " searching files in directory    <C-p> (F5 to reload)
 Plugin 'scrooloose/nerdtree'                " directory tree                  :e .
+
+" commenting
 Plugin 'tomtom/tcomment_vim'                " comment/uncomment line          gcc
+
 " Plugin 'sirver/ultisnips'                   " snippets                        :UltiSnipsEdit  " TODO disabled because slow
 Plugin 'triglav/vim-visual-increment'       " incrementing nums in vis select <C-A>
 Plugin 'tpope/vim-unimpaired'               " quick bracket commands          :cnext :cprev -> ]q [q
@@ -31,26 +36,34 @@ Plugin 'tpope/vim-eunuch'                   " :Move, :Rename
 Plugin 'Valloric/YouCompleteMe'             " text completion                 <tab>
 Plugin 'psf/black'                          " python black formatter          :Black
 Plugin 'junegunn/vim-easy-align'            " align markdown tables           :EasyAlign*<Bar><Enter> (mapped to <leader><Bslash>)
+
 " look and feel plugins
 Plugin 'airblade/vim-gitgutter'             " show git diff status by numbers
 Plugin 'bling/vim-airline'                  " nice looking bottom status line and tabs
 Plugin 'altercation/vim-colors-solarized'
+
 " syntax highlighting
-Plugin 'vim-scripts/trailing-whitespace'    " show trailing whitespace as red ->  
+Plugin 'burnettk/vim-angular'
+Plugin 'cespare/vim-toml'
+Plugin 'dense-analysis/ale'
+Plugin 'elzr/vim-json'
+Plugin 'godlygeek/tabular'
+Plugin 'hail2u/vim-css3-syntax'
+Plugin 'hashivim/vim-terraform'
+Plugin 'ingydotnet/yaml-vim'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'mechatroner/rainbow_csv'
+Plugin 'pangloss/vim-javascript'
+Plugin 'posva/vim-vue'
+Plugin 'preservim/vim-markdown'
+"  Plugin 'prettier/vim-prettier'       " restore when compatible with prettier 3.X
+Plugin 'adnan007d/vim-prettier'
+Plugin 'rust-lang/rust.vim'
 Plugin 'sukima/xmledit'
 Plugin 'vim-scripts/django.vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'elzr/vim-json'
-Plugin 'burnettk/vim-angular'
-Plugin 'posva/vim-vue'
-Plugin 'tpope/vim-markdown'
-Plugin 'ingydotnet/yaml-vim'
-Plugin 'hashivim/vim-terraform'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'leafgarland/typescript-vim'
-Plugin 'rust-lang/rust.vim'
-Plugin 'mechatroner/rainbow_csv'
-Plugin 'prettier/vim-prettier'
+Plugin 'vim-scripts/trailing-whitespace'    " show trailing whitespace as red ->  
+Plugin 'delphinus/vim-firestore'
+Plugin 'jparise/vim-graphql'
 call vundle#end()
 filetype plugin indent on
 
@@ -65,7 +78,7 @@ else
 endif
 set t_Co=16
 let g:solarized_termcolors=16
-colorscheme solarized
+silent! colorscheme solarized
 
 " tabs
 set shiftwidth=4
@@ -151,6 +164,12 @@ let g:ctrlp_root_markers = ['docker-compose.yml']  " for etls directory so it do
 " */staticfiles/*,
 let g:ctrlp_show_hidden = 1
 
+" respect .gitignore
+let g:ctrlp_user_command = [
+    \ '.git', 'cd %s && git ls-files . -co --exclude-standard',
+    \ 'find %s -type f'
+    \ ]
+
 " highlighting at 80 columns and past 120
 let &colorcolumn="88,".join(range(120,999),",")
 
@@ -164,6 +183,8 @@ let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language
 let g:ycm_complete_in_comments = 1 " Completion in comments
 let g:ycm_complete_in_strings = 1 " Completion in string
 let g:ycm_autoclose_preview_window_after_completion = 1
+" Use homebrew's clangd
+let g:ycm_clangd_binary_path = trim(system('brew --prefix llvm')).'/bin/clangd'
 
 " copy to clipboard
 set clipboard=unnamed
@@ -203,23 +224,26 @@ set wrapmargin=0
 autocmd BufNewFile,BufRead *.html set filetype=htmldjango
 autocmd BufNewFile,BufRead Gemfile set filetype=ruby
 autocmd BufNewFile,BufRead *.ino set filetype=c
-au BufNewFile,BufRead *.yaml,*.yml set filetype=yaml
+autocmd BufNewFile,BufRead *.yaml,*.yml set filetype=yaml
+autocmd BufNewFile,BufRead *.md set filetype=markdown
+autocmd BufNewFile,BufRead *.ts set filetype=typescript
+autocmd BufNewFile,BufRead .prettierrc set filetype=json
 
 " set tab defaults for specific filetypes
 autocmd FileType css setlocal shiftwidth=2 tabstop=2
-autocmd FileType scss setlocal shiftwidth=2 tabstop=2
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2
-autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
-autocmd FileType json setlocal shiftwidth=2 tabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
-autocmd FileType sql setlocal shiftwidth=2 tabstop=2
-autocmd FileType vue setlocal shiftwidth=2 tabstop=2
-autocmd FileType python set sw=4
-autocmd FileType python set ts=4
-autocmd FileType python set sts=4
+autocmd FileType json setlocal shiftwidth=2 tabstop=2
+autocmd FileType markdown setlocal shiftwidth=2 tabstop=2
+autocmd FileType python set shiftwidth=4 tabstop=4 softtabstop=4
 autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
+autocmd FileType scss setlocal shiftwidth=2 tabstop=2
+autocmd FileType sql setlocal shiftwidth=2 tabstop=2
 autocmd FileType tf setlocal shiftwidth=2 tabstop=2
+autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
+autocmd FileType vue setlocal shiftwidth=2 tabstop=2
+autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 
 " Override default italic highlighting
 highlight htmlItalic gui=italic guifg=#b58900 ctermfg=136
@@ -256,15 +280,48 @@ set iskeyword+=-
 " let g:UltiSnipsSnippetsDir = '/Users/philngo/.vim/my_ultisnips/'
 " let g:UltiSnipsSnippetDirectories=['/Users/philngo/.vim/my_ultisnips/']
 
+" let g:black_virtualenv = '/Users/philngo/.pyenv/versions/3.10.1/'
+
 " automatic rust formatting
 let g:rustfmt_autosave = 1
 
-" automatic js and vue formatting
+" automatic js, json, ts and vue formatting
 let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.vue Prettier
+" let g:prettier#config#single_quote = 'true'
+" let g:prettier#config#trailing_comma = 'all'
+autocmd BufWritePre *.js,*.json,*.vue,*.ts Prettier
+
+" automatic SQL formatting
+" autocmd BufWritePre *.sql Prettier
 
 " automatic blackening
 autocmd BufWritePre *.py Black
 "
 " " automatic import sorting
 " autocmd BufWritePre *.py :!isort %
+
+" Spellchedk for markdown files.
+"  Use `zg` to add a word to the spellfile dictionary
+"  Use `]s` to go to the next misspelled word
+autocmd BufRead,BufNewFile *.md setlocal spell
+autocmd BufRead,BufNewFile *.txt setlocal spell
+autocmd BufRead,BufNewFile *.rst setlocal spell
+
+" no folding markdown
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_auto_insert_bullets = 1
+let g:vim_markdown_new_list_item_indent = 0
+
+" tcomment
+let g:tcomment#filetype#guess_vue = 1
+
+" ALE
+" let g:ale_fixers = {
+" \   'javascript': ['prettier', 'eslint'],
+" \   'vue': ['prettier', 'eslint'],
+" \   'typescript': ['prettier', 'eslint'],
+" \   'json': ['prettier'],
+" \}
+"
+" let g:ale_linters_explicit = 1
+" let g:ale_fix_on_save = 1
